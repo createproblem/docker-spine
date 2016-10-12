@@ -1,0 +1,46 @@
+version: '2'
+services:
+    redis:
+        build: ./redis
+        ports:
+            - 6379:6379
+
+    mongo:
+        build: ./mongo
+        ports:
+            - 27017:27017
+        volumes:
+            - ./data/mongo:/data/db
+
+    mariadb:
+        build: ./mariadb
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - 3306:3306
+        volumes:
+            - ./data/mariadb:/var/lib/mysql
+
+    elasticsearch:
+        build: ./elasticsearch
+        volumes:
+            - ./data/elasticsearch:/usr/share/elasticsearch/data
+
+    kibana:
+        build: ./kibana
+        depends_on:
+            - elasticsearch
+        ports:
+            - 5601:5601
+        links:
+            - elasticsearch
+
+    logstash:
+        build: ./logstash
+        depends_on:
+            - elasticsearch
+        links:
+            - elasticsearch
+        ports:
+            - 5044:5044
+

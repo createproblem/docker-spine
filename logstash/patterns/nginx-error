@@ -1,0 +1,1 @@
+NGINX_ERROR_LOG %{DATESTAMP:mydate} \[%{DATA:severity}\] (%{NUMBER:pid:int}#%{NUMBER}: \*%{NUMBER}|\*%{NUMBER}) %{GREEDYDATA:mymessage}(, client: %{IPORHOST:clientip})(, server: %{IPORHOST:server})(, request: \"%{GREEDYDATA:request}\")(, upstream: \"%{GREEDYDATA:upstream}\")?(, host: \"%{IPORHOST:loghost}\")
