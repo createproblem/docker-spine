@@ -23,6 +23,8 @@ services:
 
     elasticsearch:
         build: ./elasticsearch
+        ports:
+            - 9200:9200
         volumes:
             - ./data/elasticsearch:/usr/share/elasticsearch/data
 
@@ -43,4 +45,6 @@ services:
             - elasticsearch
         ports:
             - 5044:5044
+        environment:
+            HOST: elasticsearch:9200
 
