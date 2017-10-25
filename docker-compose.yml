@@ -1,16 +1,16 @@
 version: '2'
 services:
-    redis:
-        build: ./redis
-        ports:
-            - 6379:6379
-
-    mongo:
-        build: ./mongo
-        ports:
-            - 27017:27017
-        volumes:
-            - ./data/mongo:/data/db
+    # redis:
+    #     build: ./redis
+    #     ports:
+    #         - 6379:6379
+    #
+    # mongo:
+    #     build: ./mongo
+    #     ports:
+    #         - 27017:27017
+    #     volumes:
+    #         - ./data/mongo:/data/db
 
     mariadb:
         build: ./mariadb
@@ -21,30 +21,36 @@ services:
         volumes:
             - ./data/mariadb:/var/lib/mysql
 
-    elasticsearch:
-        build: ./elasticsearch
-        ports:
-            - 9200:9200
-        volumes:
-            - ./data/elasticsearch:/usr/share/elasticsearch/data
+    # elasticsearch:
+    #     build: ./elasticsearch
+    #     ports:
+    #         - 9200:9200
+    #     volumes:
+    #         - ./data/elasticsearch:/usr/share/elasticsearch/data
+    #         - /mnt:/dataStorage/backup/elasticsearch
+    # kibana:
+    #     build: ./kibana
+    #     depends_on:
+    #         - elasticsearch
+    #         # - logstash
+    #     ports:
+    #         - 5601:5601
+    #     links:
+    #         - elasticsearch
+            # - logstash
+    #
+    # logstash:
+    #     build: ./logstash
+    #     depends_on:
+    #         - elasticsearch
+    #     links:
+    #         - elasticsearch
+    #     ports:
+    #         - 5044:5044
+    #     environment:
+    #         HOST: elasticsearch:9200
 
-    kibana:
-        build: ./kibana
-        depends_on:
-            - elasticsearch
-        ports:
-            - 5601:5601
-        links:
-            - elasticsearch
-
-    logstash:
-        build: ./logstash
-        depends_on:
-            - elasticsearch
-        links:
-            - elasticsearch
-        ports:
-            - 5044:5044
-        environment:
-            HOST: elasticsearch:9200
-
+    # memcached:
+    #     image: memcached
+    #     ports:
+    #         - 11211:11211
